@@ -1,0 +1,11 @@
+username,first_name,last_name,email,password,pass_confirm,direccion
+14789065-7,Bruce,Wayne,bruce.wayne@example.com,12345,12345,Manor Wayne 1007
+16543210-3,Clark,Kent,clark.kent@example.com,12345,12345,Kansas Farm 143
+18907654-2,Diana,Prince,diana.prince@example.com,12345,12345,Themyscira 202
+12345678-9,Barry,Allen,barry.allen@example.com,12345,12345,Central City 325
+98765432-1,Hal,Jordan,hal.jordan@example.com,12345,12345,Coast City 58
+23456789-0,Peter,Parker,peter.parker@example.com,12345,12345,Queens 20
+32109876-5,Tony,Stark,tony.stark@example.com,12345,12345,Stark Tower 1
+54321098-6,Steve,Rogers,steve.rogers@example.com,12345,12345,Brooklyn 35
+87654321-4,Natasha,Romanoff,natasha.romanoff@example.com,12345,12345,Moscow 10
+67890123-8,Wanda,Maximoff,wanda.maximoff@example.com,12345,12345,Sokovia 5

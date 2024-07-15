@@ -1,11 +1,32 @@
 from django.contrib.auth.models import User
-from main.models import UserProfile
+from main.models import Comuna, Inmueble, UserProfile
 from django.db.utils import IntegrityError
 
 
 
-def crear_inmueble(*args):
-  pass
+def crear_inmueble(nombre, descripcion, m2_construidos, m2_totales, num_estacionamientos, num_habitaciones, num_baños, direccion, tipo_inmueble, precios, comuna_cod, propietario_rut):
+    try:
+        comuna = Comuna.objects.get(cod=comuna_cod)
+        propietario = User.objects.get(username=propietario_rut)
+        
+        Inmueble.objects.create(
+            nombre=nombre, 
+            descripcion=descripcion, 
+            m2_construidos=m2_construidos, 
+            m2_totales=m2_totales, 
+            num_estacionamientos=num_estacionamientos, 
+            num_habitaciones=num_habitaciones, 
+            num_baños=num_baños, 
+            direccion=direccion, 
+            tipo_inmueble=tipo_inmueble, 
+            precios=precios, 
+            comuna=comuna, 
+            propietario=propietario
+        )
+    except Comuna.DoesNotExist:
+        print(f'Error: Comuna con código {comuna_cod} no existe.')
+    except User.DoesNotExist:
+        print(f'Error: Usuario con RUT {propietario_rut} no existe.')
 
 def editar_inmueble(*args):
   pass
@@ -20,6 +41,7 @@ def crear_user(username, first_name, last_name, email, password, pass_confirm, d
   # 2. creamos el objeto user
   try:
     user = User.objects.create_user(username, email, password, first_name=first_name, last_name=last_name)
+    user.save()
   except IntegrityError:
     # se le da feedback al usuario
     return False, 'RUT Duplicado'
@@ -43,4 +65,7 @@ def editar_user(username, first_name, last_name, email, password, direccion, tel
   userprofile.save()
 
 
-  
+def obtener_inmuebles_comunas():
+    #comuna = Comuna.objects.all().values('id', 'nombre')
+    inmueble = Inmueble.objects.all().order_by('comuna')
+    return  inmueble

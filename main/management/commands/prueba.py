@@ -10,3 +10,5 @@ class Command(BaseCommand):
     #editar_user('1234567-8', 'Pedro', 'Picapiedras', 'pedrop@gmail.com', '54321', 'Av.Piedradura 45')
     #editar_user('1234567-8', 'Pedro', 'Picapiedras', 'picapiedra@gmail.com', '12354', 'Av.Piedradura 45')
     #editar_user('2345678-9', 'Pablo', 'Marmol', 'pablomarmol@gmail.com', '97680', 'Av.Rocadura 567')
+    #crear_inmueble('Ático Panorámico',"Ático con terraza panorámica y vistas nocturnas",100,120,0,1,1,"Calle Panorámica 789","departamento",70000,13109,32109876-5)
+    
