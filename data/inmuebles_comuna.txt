@@ -1,0 +1,15 @@
+Villa Encantada	Casa acogedora con vista al mar	Tierra Amarilla
+Casa Blanca	Amplia casa de dos pisos con jardín y piscina	Quellón
+Departamento Central	Moderno departamento cerca del centro	Chaitén
+Casa de Campo	Casa rural con amplios espacios verdes	Cochrane
+Dúplex Urbano	Dúplex con diseño urbano y espacios abiertos	Río Ibáñez
+Bodega Industrial	Espacio amplio para almacenamiento	Río Ibáñez
+Oficina Ejecutiva	Espacio de oficina ideal para negocios	San Gregorio
+Almacén Industrial	Almacén para uso industrial y comercial	Cerro Navia
+Ático Panorámico	Ático con terraza panorámica y vistas nocturnas	La Cisterna
+Piso Moderno	Piso moderno con terraza y vistas impresionantes	La Florida
+Loft Urbano	Elegante Loft con diseño contemporaneo	Lo Prado
+Gran Residencia	Mansión de lujo con jardines y cancha	Peñalolén
+Apartamento Ejecutivo	Apartamento ejecutivo con vista panorámica	San Ramón
+Bodega Logística	Bodega estratégicamente ubicada para logística	Melipilla
+Casa del Lago	Casa con acceso directo al lago	El Monte

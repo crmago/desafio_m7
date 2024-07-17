@@ -1,6 +1,9 @@
 from django.contrib.auth.models import User
-from main.models import Comuna, Inmueble, UserProfile
+from main.models import UserProfile, Inmueble, Comuna
 from django.db.utils import IntegrityError
+from django.db.models import Q
+from django.db import connection
+
 
 
 
@@ -65,7 +68,29 @@ def editar_user(username, first_name, last_name, email, password, direccion, tel
   userprofile.save()
 
 
-def obtener_inmuebles_comunas():
-    #comuna = Comuna.objects.all().values('id', 'nombre')
-    inmueble = Inmueble.objects.all().order_by('comuna')
-    return  inmueble
+def obtener_inmuebles_comunas(filtro):
+  if filtro is None:
+    return Inmueble.objects.all().order_by('comuna')
+  # si llegamos acá, significa que SI hay un filtro
+  # select * from main_inmueble where nombre like '%Elegante%' or descripcion like '%Elegante%';
+  return Inmueble.objects.filter(Q(nombre__icontains=filtro) | Q(descripcion__icontains=filtro)).order_by('comuna')
+
+
+def obtener_inmuebles_region(filtro):
+  consulta = '''
+  select I.nombre, I.descripcion, R.nombre from main_inmueble as I
+  join main_comuna as C on I.comuna_id = C.cod
+  join main_region as R on C.region_id = R.cod
+  order by R.cod
+'''
+  if filtro is not None:
+    consulta = f'''
+  select I.nombre, I.descripcion, R.nombre from main_inmueble as I
+  join main_comuna as C on I.comuna_id = C.cod
+  join main_region as R on C.region_id = R.cod where I.nombre like '%{filtro}%' or I.descripcion like '%{filtro}%'
+  order by R.cod
+'''
+  cursor = connection.cursor()
+  cursor.execute(consulta)
+  registros = cursor.fetchall() # esto es un LAZY LOADING
+  return registros

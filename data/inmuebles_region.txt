@@ -1,0 +1,15 @@
+Villa Encantada	Casa acogedora con vista al mar	De Atacama
+Casa Blanca	Amplia casa de dos pisos con jardín y piscina	De Los Lagos
+Departamento Central	Moderno departamento cerca del centro	De Los Lagos
+Casa de Campo	Casa rural con amplios espacios verdes	De Aisén del Gral. C. Ibáñez del Campo
+Dúplex Urbano	Dúplex con diseño urbano y espacios abiertos	De Aisén del Gral. C. Ibáñez del Campo
+Bodega Industrial	Espacio amplio para almacenamiento	De Aisén del Gral. C. Ibáñez del Campo
+Oficina Ejecutiva	Espacio de oficina ideal para negocios	De Magallanes y de La Antártica Chilena
+Almacén Industrial	Almacén para uso industrial y comercial	Metropolitana de Santiago
+Ático Panorámico	Ático con terraza panorámica y vistas nocturnas	Metropolitana de Santiago
+Piso Moderno	Piso moderno con terraza y vistas impresionantes	Metropolitana de Santiago
+Loft Urbano	Elegante Loft con diseño contemporaneo	Metropolitana de Santiago
+Gran Residencia	Mansión de lujo con jardines y cancha	Metropolitana de Santiago
+Apartamento Ejecutivo	Apartamento ejecutivo con vista panorámica	Metropolitana de Santiago
+Bodega Logística	Bodega estratégicamente ubicada para logística	Metropolitana de Santiago
+Casa del Lago	Casa con acceso directo al lago	Metropolitana de Santiago
