@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col-3">
+      <h3 class="text-align">Cambia tu contraseña</h3>
+      <form action="/accounts/change-pass/" method="post">
+        {% csrf_token %}
+        <div class="mb-3">
+          <label for="password" class="form-label">Contraseña</label>
+          <input
+            type="password"
+            class="form-control"
+            name="password"
+            id="password"
+            placeholder="*****"
+            required
+          />
+        </div>
+        <div class="mb-3">
+          <label for="pass_repeat" class="form-label">Repita Contraseña</label>
+          <input
+            type="password"
+            class="form-control"
+            name="pass_repeat"
+            id="pass_repeat"
+            placeholder="*****"
+            required
+          />
+        </div>
+        <input type="submit" value="Cambiar" class="btn btn-danger">
+      </form>
+    </div>
+
+    <div class="col-5">
+      <h3 class="text-center">Editar datos personales</h3>
+      <form action="/edit-user/" method="post">
+        {% csrf_token %}
+        <div class="mb-3">
+          <label for="email" class="form-label">Email</label>
+          <input type="text" class="form-control" id="email" name="email" placeholder="Tu Mail" value="{{ user.email }}"
+            required>
+        </div>
+        <div class="mb-3">
+          <label for="first_name" class="form-label">Nombre</label>
+          <input type="text" class="form-control" id="first_name" name="first_name" placeholder="Tu Nombre"
+            value="{{ user.first_name }}" required>
+        </div>
+        <div class="mb-3">
+          <label for="" class="form-label">Apellido</label>
+          <input type="text" class="form-control" name="last_name" id="last_name" placeholder="Tu Apellido"
+            value="{{user.last_name}}" required />
+        </div>
+        <div class="mb-3">
+          <label for="" class="form-label">Dirección</label>
+          <input type="text" class="form-control" name="direccion" id="direccion" placeholder="Tu Dirección"
+            value="{{user.user_profile.direccion}}" required />
+        </div>
+        <div class="mb-3">
+          <label for="" class="form-label">Teléfono</label>
+          <input type="text" class="form-control" name="telefono" id="telefono" placeholder="Tu Teléfono"
+            value="{% if user.user_profile.telefono %}{{user.user_profile.telefono}}{% endif %}" />
+        </div>
+        <button type="submit" class="btn btn-primary">Guardar cambios</button>
+      </form>
+    </div>
+
+    <div class="col-4">
+      <h3 class="text-center">Tus Propiedades</h3>
+    </div>
+  </div>
+</div>
+{% endblock %}

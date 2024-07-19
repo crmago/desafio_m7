@@ -68,6 +68,20 @@ def editar_user(username, first_name, last_name, email, password, direccion, tel
   userprofile.save()
 
 
+def editar_user_sin_password(username, first_name, last_name, email, direccion, telefono=None)-> list[bool, str]:
+  # 1. Nos traemos el 'user' y modificamos sus datos
+  user = User.objects.get(username=username)
+  user.first_name = first_name
+  user.last_name = last_name
+  user.email = email
+  user.save()
+  # 2. Nos traemos el 'userprofile' y modificamos sus datos
+  userprofile = UserProfile.objects.get(user=user)
+  userprofile.direccion = direccion
+  userprofile.telefono = telefono
+  userprofile.save()
+
+
 def obtener_inmuebles_comunas(filtro):
   if filtro is None:
     return Inmueble.objects.all().order_by('comuna')
