@@ -5,6 +5,7 @@
   body {
     font-family: "Poppins", sans-serif;
     margin: 0;
+    display: flex;
     align-items: center;
     justify-content: center;
     min-height: 100vh;
@@ -69,7 +70,7 @@
 {% block content %}
 <div class="container">
   <div class="card mt-2">
-    <h2>Ingresa a Tu Cuenta</h2>
+    <h2>Ingresa</h2>
     <form method="post" action="{% url 'login' %}">
       {% csrf_token %}
       <div class="mt-2">

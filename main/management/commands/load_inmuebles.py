@@ -1,14 +1,13 @@
-from django.core.management.base import BaseCommand
 import csv
-from main.models import Inmueble
+from django.core.management.base import BaseCommand
 from main.services import crear_inmueble
 
 class Command(BaseCommand):
-  def handle(self,*args,**kwargs):
-    archivo = open('data/inmuebles.csv', encoding='utf-8')
+  def handle(self, *args, **kwargs):
+    archivo = open('data/inmuebles.csv', encoding="utf-8")
     reader = csv.reader(archivo, delimiter=',')
     next(reader)
-    
+
     for fila in reader:
       crear_inmueble(nombre=fila[0], 
                     descripcion=fila[1], 
