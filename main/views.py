@@ -1,14 +1,54 @@
+from django.db.models import Q
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from main.services import editar_user_sin_password
+from main.models import Comuna, Inmueble, Region
 
 
 # Create your views here.
 @login_required
 def home(req):
-  return render(req, 'home.html')
+    datos = req.GET
+    region_cod = datos.get('region_cod', '')
+    comuna_cod = datos.get('comuna_cod', '')
+    palabra = datos.get('palabra', '')
+
+    inmuebles = filtrar_inmuebles(region_cod, comuna_cod, palabra)
+    comunas = Comuna.objects.all()
+    regiones = Region.objects.all()
+    context = {
+        'comunas': comunas,
+        'regiones': regiones,
+        'inmuebles': inmuebles
+    }
+    return render(req, 'home.html', context)
+
+def filtrar_inmuebles(region_cod, comuna_cod, palabra):
+    # Caso 1: comuna_cod != ''
+    if comuna_cod:
+        inmuebles = Inmueble.objects.filter(comuna__cod=comuna_cod)
+        # También podemos aplicar el filtro por palabra si está presente
+        if palabra:
+            inmuebles = inmuebles.filter(nombre__icontains=palabra)
+        return inmuebles
+
+    # Caso 2: comuna_cod == '' y region_cod != ''
+    if region_cod:
+        inmuebles = Inmueble.objects.filter(comuna__region__cod=region_cod)
+        # También podemos aplicar el filtro por palabra si está presente
+        if palabra:
+            inmuebles = inmuebles.filter(nombre__icontains=palabra)
+        return inmuebles
+
+    # Caso 3: comuna_cod == '' y region_cod == ''
+    inmuebles = Inmueble.objects.all()
+    # Aplicar el filtro por palabra si está presente
+    if palabra:
+        inmuebles = inmuebles.filter(nombre__icontains=palabra)
+    return inmuebles
+
 
 @login_required
 def profile(req):

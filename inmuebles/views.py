@@ -43,6 +43,7 @@ def editar_inmueble(req, id):
         inmueble.num_habitaciones = req.POST.get('num_habitaciones')
         inmueble.num_baños = req.POST.get('num_baños')
         inmueble.direccion = req.POST.get('direccion')
+        inmueble.tipo_inmueble = req.POST.get('tipo_inmueble')
         inmueble.precio = req.POST.get('precio')
         comuna_id = req.POST.get('comuna')
         if comuna_id:
