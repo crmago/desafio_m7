@@ -68,16 +68,16 @@
 
 {% block content %}
 <div class="container">
-  <div class="card mt-2">
-    <h2>Ingresa</h2>
+  <div class="card mt-3 mb-3">
+    <h2>Ingresa a Tu Cuenta</h2>
     <form method="post" action="{% url 'login' %}">
       {% csrf_token %}
       <div class="mt-2">
         {{ form }}
       </div>
-      <button type="submit">Login</button>
+      <button type="submit">Ingresar</button>
     </form>
-    <p>Si no tiene cuenta <a href="/accounts/register">crea una</a></p>
+    <p>Si no tiene cuenta <a href="/accounts/register">crea una aca</a></p>
   </div>
 </div>
 {% endblock %}

@@ -3,10 +3,6 @@ from django.contrib.auth.models import User
 from django.core.validators import MinValueValidator
 # Create your models here.
 
-from django.db import models
-from django.contrib.auth.models import User
-from django.core.validators import MinValueValidator
-from django import forms
 
 class UserProfile(models.Model):
   # User: username(rut), email, first_name, last_name, password
@@ -49,6 +45,7 @@ class Inmueble(models.Model):
   tipo_inmueble = models.CharField(max_length=255, choices=tipos)
   precio = models.IntegerField(validators=[MinValueValidator(1000)], null=True)
   precio_ufs = models.FloatField(validators=[MinValueValidator(1.0)], null=True)
+  imagen = models.ImageField(upload_to='inmuebles/', null=True, blank=True)  # Agregar campo de imagen
   # llaves foráneas
   comuna = models.ForeignKey(Comuna, related_name='inmuebles', on_delete=models.RESTRICT)
   propietario = models.ForeignKey(User, on_delete=models.RESTRICT, related_name='inmuebles')

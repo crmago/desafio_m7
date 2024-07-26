@@ -3,8 +3,11 @@ from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from main.services import editar_user_sin_password
-from main.models import Comuna, Inmueble, Region
+from django.contrib.auth.models import User
+from django.contrib.auth import login
+from .forms import RegisterForm
+from main.services import editar_user_sin_password, crear_user
+from main.models import Comuna, Inmueble, Region, UserProfile
 
 
 # Create your views here.
@@ -114,3 +117,52 @@ def solo_arrendadores(req):
 
 def solo_arrendatarios(req):
   return HttpResponse('sólo arrendatarios')
+
+
+def register(req):
+    if req.method == 'POST':
+        form = RegisterForm(req.POST)
+        if form.is_valid():
+            username = form.cleaned_data['username']
+            first_name = form.cleaned_data['first_name']
+            last_name = form.cleaned_data['last_name']
+            email = form.cleaned_data['email']
+            password = form.cleaned_data['password1']
+            direccion = form.cleaned_data['direccion']
+            telefono = form.cleaned_data.get('telefono')
+            rol = form.cleaned_data['rol']
+
+            # Crear usuario
+            user, created = User.objects.get_or_create(username=username, defaults={
+                'first_name': first_name,
+                'last_name': last_name,
+                'email': email
+            })
+
+            if created:
+                user.set_password(password)
+                user.save()
+                # Crear perfil de usuario
+                UserProfile.objects.create(user=user, direccion=direccion, telefono=telefono, rol=rol)
+                messages.success(req, "Tu cuenta ha sido creada exitosamente. ¡Bienvenido!")
+            else:
+                # Si el usuario ya existía, actualiza el perfil
+                user_profile, profile_created = UserProfile.objects.get_or_create(user=user)
+                if not profile_created:
+                    user_profile.direccion = direccion
+                    user_profile.telefono = telefono
+                    user_profile.rol = rol
+                    user_profile.save()
+                    messages.success(req, "Tu cuenta ha sido actualizada exitosamente.")
+                else:
+                    messages.error(req, "El usuario ya existe y su perfil ha sido actualizado.")
+            
+            # Iniciar sesión
+            login(req, user)
+            return redirect('home')
+        else:
+            messages.error(req, "Por favor corrige los errores a continuación.")
+    else:
+        form = RegisterForm()
+    
+    return render(req, 'registration/register.html', {'form': form})

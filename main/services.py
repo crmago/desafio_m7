@@ -26,7 +26,7 @@ def crear_user(username, first_name, last_name, email, password, pass_confirm, d
     user = User.objects.create_user(username, email, password, first_name=first_name, last_name=last_name)
   except IntegrityError:
     # se le da feedback al usuario
-    return False, 'RUT duplicado'
+    return False, 'Nombre de usuario o email ya existen'
   # 3. Creamos el UserProfile
   UserProfile.objects.create(user=user, direccion=direccion, telefono=telefono)
   # 4. Si todo sale bien, retornamos True

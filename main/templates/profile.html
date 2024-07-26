@@ -1,8 +1,10 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<div class="container">
   <div class="row">
     <div class="col-3">
+      <div class="card shadow p-3 mb-5 mt-4 bg-white rounded">
       <h3 class="text-center">Cambia tu contraseña</h3>
       <form action="/accounts/change-pass/" method="post">
         {% csrf_token %}
@@ -28,11 +30,14 @@
             required
           />
         </div>
-        <input type="submit" value="Cambiar" class="btn btn-danger">
+        <input type="submit" value="Cambiar Contraseña" class="btn btn-danger">
       </form>
+      </div>
     </div>
     <div class="col-5">
-      <h3 class="text-center">Editar datos personales</h3>
+      <div class="card shadow p-3 mb-5 mt-4 bg-white rounded">
+        <div class="card-body">
+      <h3 class="text-center">Editar Mis Datos</h3>
       <form action="/edit-user/" method="post">
         {% csrf_token %}
         <div class="mb-3">
@@ -136,8 +141,11 @@
         
         <input type="submit" value="Enviar" class="btn btn-outline-success">
       </form>
+        </div>
+      </div>
     </div>
     <div class="col-4">
+      <div class="p-4 border rounded bg-light mt-4">
       <h3 class="text-center">
         {% if user.user_profile.rol == 'arrendador' %}
           Tus Propiedades
@@ -147,6 +155,7 @@
           TODAS
         {% endif %}
       </h3>
+      </div>
       <ul class="list-group">
         {% for inmueble in mis_inmuebles %}
           <li class="list-group-item">
@@ -169,6 +178,7 @@
         {% endfor %}
       </ul>
     </div>
+  </div>
   </div>
 {% endblock %}
 

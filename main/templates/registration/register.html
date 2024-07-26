@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card shadow-sm">
+        <div class="card-header text-center bg-primary text-white">
+          <h2>Registro de Usuario</h2>
+        </div>
+        <div class="card-body">
+          <form method="post" action="{% url 'register' %}">
+            {% csrf_token %}
+            <div class="mb-3">
+              <label for="username" class="form-label">RUT</label>
+              <input type="text" class="form-control" name="username" id="username" placeholder="12345678-9" required>
+            </div>
+            <div class="mb-3">
+              <label for="first_name" class="form-label">Nombre</label>
+              <input type="text" class="form-control" name="first_name" id="first_name" placeholder="Tu nombre" required>
+            </div>
+            <div class="mb-3">
+              <label for="last_name" class="form-label">Apellido</label>
+              <input type="text" class="form-control" name="last_name" id="last_name" placeholder="Tu apellido" required>
+            </div>
+            <div class="mb-3">
+              <label for="email" class="form-label">Email</label>
+              <input type="email" class="form-control" name="email" id="email" placeholder="abc@mail.com" required>
+            </div>
+            <div class="mb-3">
+              <label for="password" class="form-label">Contraseña</label>
+              <input type="password" class="form-control" name="password1" id="password1" placeholder="*****" required>
+            </div>
+            <div class="mb-3">
+              <label for="pass_confirm" class="form-label">Confirmar Contraseña</label>
+              <input type="password" class="form-control" name="password2" id="password2" placeholder="*****" required>
+            </div>
+            <div class="mb-3">
+              <label for="direccion" class="form-label">Dirección</label>
+              <input type="text" class="form-control" name="direccion" id="direccion" placeholder="Tu dirección" required>
+            </div>
+            <div class="mb-3">
+              <label for="telefono" class="form-label">Teléfono</label>
+              <input type="text" class="form-control" name="telefono" id="telefono" placeholder="Tu teléfono">
+            </div>
+            <div class="mb-3">
+              <label for="rol" class="form-label">Rol</label>
+              <select class="form-select" name="rol" id="rol" required>
+                <option value="">Seleccione un rol</option>
+                <option value="arrendador">Arrendador</option>
+                <option value="arrendatario">Arrendatario</option>
+              </select>
+            </div>
+            <button type="submit" class="btn btn-success w-100">Registrarse</button>
+          </form>
+        </div>
+        <div class="card-footer text-center">
+          <p>¿Ya tienes una cuenta? <a href="{% url 'login' %}">Inicia sesión aquí</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

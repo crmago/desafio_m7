@@ -1,7 +1,15 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  <h3 class="text-center">Editando la Propiedad {{inmueble}}</h3>
+<div class="container">
+  <div class="p-4 border rounded bg-light mt-4">
+    <h3 class="text-center">
+      Editando la Propiedad<br>
+      <h4 class="text-center" style="color: royalblue;">{{ inmueble.nombre }}</h4>
+    </h3>
+  </div>
+  <div class="card shadow-lg mb-4">
+    <div class="card-body">
   <form action="{% url 'editar_inmueble' id=inmueble.id %}" method="post">
     {% csrf_token %}
     <div class="row">
@@ -102,6 +110,9 @@
       <button type="submit" class="btn btn-success">Editar</button>
     </div>
   </form>
+    </div>
+  </div>
+</div>
 {% endblock %}
 
 {% block js %}
