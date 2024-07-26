@@ -3,108 +3,112 @@
 {% load static %}
 
 {% block content %}
-    <div class="container mt-3 mb-5">
-        <div class="row">
-            <div class="col-md-6 d-flex justify-content-center align-items-center">
-                <div class="position-relative">
-                    <img src="{% static 'img/23773.jpg' %}" alt="image" style="height: auto; width: 100%;">
-                </div>
+<div class="container mt-3 mb-5">
+    <div class="row">
+        <div class="col-md-6 d-flex justify-content-center align-items-center">
+            <div class="position-relative">
+                <img src="{% static 'img/23773.jpg' %}" alt="image" style="height: auto; width: 100%;">
             </div>
-            <div class="col-md-6 d-flex flex-column mt-3">
-                <div class="mb-3">
-                  <div class="p-4 border rounded bg-light">
+        </div>
+        <div class="col-md-6 d-flex flex-column mt-3">
+            <div class="mb-3">
+                <div class="p-4 border rounded bg-light">
                     <h3 class="text-center">Buscar Propiedades</h3>
-                    </div>
-                    <form action="/" method="get">
-                        {% csrf_token %}
-                        <div class="mb-3">
-                            <label for="region_cod" class="form-label">Región</label>
-                            <select name="region_cod" id="region_cod" class="form-select">
-                                <option value="">Selecciona una región</option>
-                                {% for region in regiones %}
-                                <option value="{{region.cod}}">
-                                    {{region.nombre}}
-                                </option>
-                                {% endfor %}
-                            </select>
-                        </div>
-                        <div class="mb-3">
-                            <label for="comuna" class="form-label">Comuna</label>
-                            <select name="comuna_cod" id="comuna_cod" class="form-select">
-                                <option value="">Selecciona una comuna</option>
-                                {% for comuna in comunas %}
-                                <option value="{{comuna.cod}}">
-                                    {{comuna.nombre}}
-                                </option>
-                                {% endfor %}
-                            </select>
-                        </div>
-                        <div class="mb-3">
-                            <label for="palabra" class="form-label">Palabra</label>
-                            <input type="text" class="form-control" name="palabra" id="palabra" />
-                        </div>
-                        <input type="submit" value="Buscar" class="btn btn-success">
-                    </form>
                 </div>
-                <div class="flex-grow-1 mb-4">
-                    <div id="propertyCarousel" class="carousel slide mb-4" data-bs-ride="carousel">
-                        <div class="carousel-inner mb-4">
-                            {% for inmueble in inmuebles %}
-                                {% if forloop.counter0|divisibleby:3 %}
-                                    <div class="carousel-item {% if forloop.first %}active{% endif %}">
-                                        <div class="row">
+                <form action="/" method="get">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="region_cod" class="form-label">Región</label>
+                        <select name="region_cod" id="region_cod" class="form-select">
+                            <option value="">Selecciona una región</option>
+                            {% for region in regiones %}
+                            <option value="{{region.cod}}">
+                                {{region.nombre}}
+                            </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="comuna" class="form-label">Comuna</label>
+                        <select name="comuna_cod" id="comuna_cod" class="form-select">
+                            <option value="">Selecciona una comuna</option>
+                            {% for comuna in comunas %}
+                            <option value="{{comuna.cod}}">
+                                {{comuna.nombre}}
+                            </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="palabra" class="form-label">Palabra</label>
+                        <input type="text" class="form-control" name="palabra" id="palabra" />
+                    </div>
+                    <input type="submit" value="Buscar" class="btn btn-success">
+                </form>
+            </div>
+            <div class="flex-grow-1 mb-4">
+                <div id="propertyCarousel" class="carousel slide mb-4" data-bs-ride="carousel">
+                    <div class="carousel-inner mb-4">
+                        {% for inmueble in inmuebles %}
+                        {% if forloop.counter0|divisibleby:3 %}
+                        <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                            <div class="row">
                                 {% endif %}
-                                            <div class="col-4 mb-4">
-                                                <div class="card h-100 mt-3">
-                                                    <div class="card-body d-flex flex-column">
-                                                        <h5 class="card-title">{{inmueble.nombre}}</h5>
-                                                        <p class="card-text">{{inmueble.descripcion}}</p>
-                                                        <a href="#" class="btn btn-primary mt-auto">Ver detalle</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                {% if forloop.counter0|add:1|divisibleby:3 or forloop.last %}
+                                <div class="col-4 mb-4">
+                                    <div class="card h-100 mt-3">
+                                        <div class="card-body d-flex flex-column">
+                                            <h5 class="card-title">{{ inmueble.nombre }}</h5>
+                                            <p class="card-text">{{ inmueble.descripcion|truncatewords:20 }}</p>
+                                            <a href="{% url 'inmueble_detail' inmueble.pk %}"
+                                                class="btn btn-primary mt-auto">Ver detalle</a>
                                         </div>
                                     </div>
-                                {% endif %}
-                            {% endfor %}
+                                </div>
+                                {% if forloop.counter0|add:1|divisibleby:3 or forloop.last %}
+                            </div>
                         </div>
-                        <button class="carousel-control-prev" type="button" data-bs-target="#propertyCarousel" data-bs-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Previous</span>
-                        </button>
-                        <button class="carousel-control-next" type="button" data-bs-target="#propertyCarousel" data-bs-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Next</span>
-                        </button>
+                        {% endif %}
+                        {% endfor %}
                     </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#propertyCarousel"
+                        data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#propertyCarousel"
+                        data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
                 </div>
             </div>
         </div>
     </div>
+</div>
 {% endblock %}
+
 
 
 
 {% block js %}
 <script>
-  function filtrar_comunas () {
-    // recuperamos el valor seleccionado de la Region
-    const cod_seleccionado = $(this).val()
-    console.log(cod_seleccionado)
-    // ahora iteramos sobre todas las comunas, y mostramos sólo aquellas cuyo código tenga como prefijo el código de la región seleccionada
-    $('#comuna_cod option').each(function() {
-      const comuna = $(this)
-      const cod_comuna = comuna.val()
-      if (cod_seleccionado == cod_comuna.substring(0, 2)) {
-        // la comuna es parte de la region
-        comuna.show()
-      } else {
-        comuna.hide()
-      }
-    })
-  }
+    function filtrar_comunas() {
+        // recuperamos el valor seleccionado de la Region
+        const cod_seleccionado = $(this).val()
+        console.log(cod_seleccionado)
+        // ahora iteramos sobre todas las comunas, y mostramos sólo aquellas cuyo código tenga como prefijo el código de la región seleccionada
+        $('#comuna_cod option').each(function () {
+            const comuna = $(this)
+            const cod_comuna = comuna.val()
+            if (cod_seleccionado == cod_comuna.substring(0, 2)) {
+                // la comuna es parte de la region
+                comuna.show()
+            } else {
+                comuna.hide()
+            }
+        })
+    }
 
-  $('#region_cod').on('change', filtrar_comunas)
+    $('#region_cod').on('change', filtrar_comunas)
 </script>
 {% endblock %}

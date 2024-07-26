@@ -1,6 +1,6 @@
 from django.db.models import Q
 from django.http import HttpResponse
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.contrib.auth.models import User
@@ -166,3 +166,8 @@ def register(req):
         form = RegisterForm()
     
     return render(req, 'registration/register.html', {'form': form})
+
+
+def inmueble_detail(req, pk):
+    inmueble = get_object_or_404(Inmueble, pk=pk)
+    return render(req, 'inmueble_detail.html', {'inmueble': inmueble})

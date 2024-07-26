@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container">
+        <h1>{{ inmueble.nombre }}</h1>
+        <p>{{ inmueble.descripcion }}</p>
+        <p>Metros Construidos: {{ inmueble.m2_construidos }} m²</p>
+        <p>Metros Totales: {{ inmueble.m2_totales }} m²</p>
+        <p>Estacionamientos: {{ inmueble.num_estacionamientos }}</p>
+        <p>Habitaciones: {{ inmueble.num_habitaciones }}</p>
+        <p>Baños: {{ inmueble.num_baños }}</p>
+        <p>Dirección: {{ inmueble.direccion }}</p>
+        <p>Tipo de Inmueble: {{ inmueble.get_tipo_inmueble_display }}</p>
+        <p>Precio: {{ inmueble.precio }}</p>
+        <p>Comuna: {{ inmueble.comuna.nombre }}</p>
+        <p>Propietario: {{ inmueble.propietario.first_name }} {{ inmueble.propietario.last_name }}</p>
+        {% if inmueble.imagen %}
+            <img src="{{ inmueble.imagen.url }}" alt="{{ inmueble.nombre }}">
+        {% else %}
+            <p>No hay imagen disponible</p>
+        {% endif %}
+    </div>
+    {% endblock %}
