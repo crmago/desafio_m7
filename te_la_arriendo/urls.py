@@ -16,6 +16,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
+from django.conf import settings
+from django.conf.urls.static import static
 from main.views import home, inmueble_detail, solo_arrendadores, solo_arrendatarios, profile, edit_user, change_password, register
 from inmuebles.views import nuevo_inmueble, crear_inmueble, editar_inmueble, eliminar_inmueble
 
@@ -34,5 +36,5 @@ urlpatterns = [
     path('inmuebles/crear/', crear_inmueble, name='crear_inmueble'),
     path('inmuebles/editar/<id>/', editar_inmueble, name='editar_inmueble'),
     path('inmuebles/eliminar/<id>/', eliminar_inmueble, name='eliminar_inmueble'),
-    path('inmueble/<int:pk>/', inmueble_detail, name='inmueble_detail'),
-]
+    path('inmueble/<int:pk>/', inmueble_detail, name='inmueble_detail_modal'),
+]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -11,7 +11,6 @@ from main.models import Comuna, Inmueble, Region, UserProfile
 
 
 # Create your views here.
-@login_required
 def home(req):
     datos = req.GET
     region_cod = datos.get('region_cod', '')
@@ -168,6 +167,6 @@ def register(req):
     return render(req, 'registration/register.html', {'form': form})
 
 
-def inmueble_detail(req, pk):
+def inmueble_detail(request, pk):
     inmueble = get_object_or_404(Inmueble, pk=pk)
-    return render(req, 'inmueble_detail.html', {'inmueble': inmueble})
+    return render(request, 'inmueble_detail_modal.html', {'inmueble': inmueble})

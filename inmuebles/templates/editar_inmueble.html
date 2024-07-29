@@ -10,7 +10,7 @@
   </div>
   <div class="card shadow-lg mb-4">
     <div class="card-body">
-  <form action="{% url 'editar_inmueble' id=inmueble.id %}" method="post">
+  <form action="{% url 'editar_inmueble' id=inmueble.id %}" method="post" enctype="multipart/form-data">
     {% csrf_token %}
     <div class="row">
       <div class="col-4 p-3">
@@ -103,7 +103,13 @@
             {% endfor %}
           </select>
         </div>
-
+        <div class="mb-3">
+          <label for="imagen" class="form-label">Imagen:</label>
+          <input type="file" class="form-control" id="imagen" name="imagen">
+          {% if inmueble.imagen %}
+            <img src="{{ inmueble.imagen.url }}" alt="Imagen actual" class="img-fluid mt-2" style="max-width: 100%;">
+          {% endif %}
+        </div>
       </div>
     </div>
     <div class="text-center">

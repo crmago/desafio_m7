@@ -3,17 +3,124 @@
 {% load static %}
 
 {% block content %}
-<div class="container mt-3 mb-5">
-    <div class="row">
-        <div class="col-md-6 d-flex justify-content-center align-items-center">
-            <div class="position-relative">
-                <img src="{% static 'img/23773.jpg' %}" alt="image" style="height: auto; width: 100%;">
+
+<style>
+    .banner {
+        position: relative;
+        width: 100%;
+        max-height: 900px;
+        /* Ajusta esto según tus necesidades */
+        overflow: hidden;
+    }
+
+    .banner img {
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+    }
+
+    .banner .texto-sobre-imagen {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: white;
+        background-color: rgba(0, 0, 0, 0.5);
+        /* Fondo semi-transparente */
+        padding: 10px 20px;
+        border-radius: 5px;
+    }
+
+    .banner .texto-sobre-imagen h1 {
+        font-size: 5rem;
+        /* Tamaño de letra más grande para el título */
+        font-family: 'Oswald', sans-serif;
+        /* Fuente llamativa */
+        font-weight: 1000;
+        /* Letras gruesas */
+        margin: 0;
+    }
+
+    .banner .texto-sobre-imagen p {
+        font-size: 1.5rem;
+        /* Tamaño de letra más grande para el subtítulo */
+        margin: 0;
+    }
+</style>
+
+
+
+
+<div class="row no-gutters">
+    <div class="col-12">
+        <div class="banner">
+            <img src="{% static 'img/imagen_para_banner.jpg' %}" alt="Banner">
+            <div class="texto-sobre-imagen">
+                <h1>Encuentra Tu Hogar Ideal</h1>
+                <p style="text-align: center;">Explora las mejores opciones de arriendo de propiedades en tu área</p>
             </div>
         </div>
-        <div class="col-md-6 d-flex flex-column mt-3">
-            <div class="mb-3">
-                <div class="p-4 border rounded bg-light">
-                    <h3 class="text-center">Buscar Propiedades</h3>
+    </div>
+</div>
+
+<div>
+    <div class="container mt-3">
+        <!-- Primer row con imagen y formulario de búsqueda -->
+        <div class="row">
+            <!-- Carrusel de Imagenes al costado del formulario -->
+
+            <div class="col-md-3 d-none d-md-block">
+                <div id="carouselExampleIndicatorsLeft" class="carousel slide">
+                    <div class="carousel-indicators">
+                        <button type="button" data-bs-target="#carouselExampleIndicatorsLeft" data-bs-slide-to="0"
+                            class="active" aria-current="true" aria-label="Slide 1"></button>
+                        <button type="button" data-bs-target="#carouselExampleIndicatorsLeft" data-bs-slide-to="1"
+                            aria-label="Slide 2"></button>
+                        <button type="button" data-bs-target="#carouselExampleIndicatorsLeft" data-bs-slide-to="2"
+                            aria-label="Slide 3"></button>
+                    </div>
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <div class="d-flex justify-content-center align-items-center mt-4" style="height: 300px; background-color: #8fbdeb;">
+                                <div class="carousel-caption" style="color: black;">
+                                    <h5><i class="fas fa-home"></i> Texto con Ícono</h5>
+                                    <p>Descripción o texto adicional aquí.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="carousel-item active">
+                            <div class="d-flex justify-content-center align-items-center mt-4" style="height: 300px; background-color: #8fbdeb;">
+                                <div class="carousel-caption" style="color: black;">
+                                    <h5><i class="fas fa-home"></i> Texto con Ícono</h5>
+                                    <p>Descripción o texto adicional aquí.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="carousel-item active">
+                            <div class="d-flex justify-content-center align-items-center mt-4" style="height: 300px; background-color: #8fbdeb;">
+                                <div class="carousel-caption" style="color: black;">
+                                    <h5><i class="fas fa-home"></i> Texto con Ícono</h5>
+                                    <p>Descripción o texto adicional aquí.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicatorsLeft"
+                        data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicatorsLeft"
+                        data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+            </div>
+            <!--Formulario de Busqueda-->
+            <div class="col-md-6 mt-4 d-flex flex-column card shadow-lg" style="padding: 10px;">
+                <div class="p-4 border rounded bg-success mb-3">
+                    <h3 class="text-center" style="color: white;">Buscar Propiedades</h3>
                 </div>
                 <form action="/" method="get">
                     {% csrf_token %}
@@ -22,60 +129,70 @@
                         <select name="region_cod" id="region_cod" class="form-select">
                             <option value="">Selecciona una región</option>
                             {% for region in regiones %}
-                            <option value="{{region.cod}}">
-                                {{region.nombre}}
-                            </option>
+                            <option value="{{ region.cod }}">{{ region.nombre }}</option>
                             {% endfor %}
                         </select>
                     </div>
                     <div class="mb-3">
-                        <label for="comuna" class="form-label">Comuna</label>
+                        <label for="comuna_cod" class="form-label">Comuna</label>
                         <select name="comuna_cod" id="comuna_cod" class="form-select">
                             <option value="">Selecciona una comuna</option>
                             {% for comuna in comunas %}
-                            <option value="{{comuna.cod}}">
-                                {{comuna.nombre}}
-                            </option>
+                            <option value="{{ comuna.cod }}">{{ comuna.nombre }}</option>
                             {% endfor %}
                         </select>
                     </div>
                     <div class="mb-3">
                         <label for="palabra" class="form-label">Palabra</label>
-                        <input type="text" class="form-control" name="palabra" id="palabra" />
+                        <input type="text" class="form-control" name="palabra" id="palabra">
                     </div>
                     <input type="submit" value="Buscar" class="btn btn-success">
                 </form>
             </div>
-            <div class="flex-grow-1 mb-4">
-                <div id="propertyCarousel" class="carousel slide mb-4" data-bs-ride="carousel">
-                    <div class="carousel-inner mb-4">
-                        {% for inmueble in inmuebles %}
-                        {% if forloop.counter0|divisibleby:3 %}
-                        <div class="carousel-item {% if forloop.first %}active{% endif %}">
-                            <div class="row">
-                                {% endif %}
-                                <div class="col-4 mb-4">
-                                    <div class="card h-100 mt-3">
-                                        <div class="card-body d-flex flex-column">
-                                            <h5 class="card-title">{{ inmueble.nombre }}</h5>
-                                            <p class="card-text">{{ inmueble.descripcion|truncatewords:20 }}</p>
-                                            <a href="{% url 'inmueble_detail' inmueble.pk %}"
-                                                class="btn btn-primary mt-auto">Ver detalle</a>
-                                        </div>
-                                    </div>
+
+            <!-- Columna derecha con imagen en el carrusel -->
+            <div class="col-md-3 d-none d-md-block">
+                <div id="carouselExampleIndicatorsRight" class="carousel slide">
+                    <div class="carousel-indicators">
+                        <button type="button" data-bs-target="#carouselExampleIndicatorsRight" data-bs-slide-to="0"
+                            class="active" aria-current="true" aria-label="Slide 1"></button>
+                        <button type="button" data-bs-target="#carouselExampleIndicatorsRight" data-bs-slide-to="1"
+                            aria-label="Slide 2"></button>
+                        <button type="button" data-bs-target="#carouselExampleIndicatorsRight" data-bs-slide-to="2"
+                            aria-label="Slide 3"></button>
+                    </div>
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <div class="d-flex justify-content-center align-items-center mt-4" style="height: 300px; background-color: #8fbdeb;">
+                                <div class="carousel-caption" style="color: black;">
+                                    <h5><i class="fas fa-home"></i> Texto con Ícono</h5>
+                                    <p>Descripción o texto adicional aquí.</p>
                                 </div>
-                                {% if forloop.counter0|add:1|divisibleby:3 or forloop.last %}
                             </div>
                         </div>
-                        {% endif %}
-                        {% endfor %}
+                        <div class="carousel-item active">
+                            <div class="d-flex justify-content-center align-items-center mt-4" style="height: 300px; background-color: #8fbdeb;">
+                                <div class="carousel-caption" style="color: black;">
+                                    <h5><i class="fas fa-home"></i> Texto con Ícono</h5>
+                                    <p>Descripción o texto adicional aquí.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="carousel-item active">
+                            <div class="d-flex justify-content-center align-items-center mt-4" style="height: 300px; background-color: #8fbdeb;">
+                                <div class="carousel-caption" style="color: black;">
+                                    <h5><i class="fas fa-home"></i> Texto con Ícono</h5>
+                                    <p>Descripción o texto adicional aquí.</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <button class="carousel-control-prev" type="button" data-bs-target="#propertyCarousel"
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicatorsRight"
                         data-bs-slide="prev">
                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                         <span class="visually-hidden">Previous</span>
                     </button>
-                    <button class="carousel-control-next" type="button" data-bs-target="#propertyCarousel"
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicatorsRight"
                         data-bs-slide="next">
                         <span class="carousel-control-next-icon" aria-hidden="true"></span>
                         <span class="visually-hidden">Next</span>
@@ -84,31 +201,138 @@
             </div>
         </div>
     </div>
+
+
+    <!-- Segundo row con carrusel de propiedades -->
+    <div class="container">
+    <div class="row mt-4 mb-4">
+        <div class="col-12">
+            <div id="propertyCarousel" class="carousel slide mb-4" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    {% for inmueble in inmuebles %}
+                    {% if forloop.counter0|divisibleby:3 %}
+                    <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                        <div class="row g-3">
+                            {% endif %}
+                            <div class="col-md-4 mb-3 align-items-stretch">
+                                <div class="card h-100 mt-3" style="width: 100%; overflow: hidden; position: relative;">
+                                    <!-- Mostrar la imagen del inmueble, si existe -->
+                                    {% if inmueble.imagen %}
+                                    <img src="{{ inmueble.imagen.url }}" class="card-img-top"
+                                        style="width: 100%; max-height: 250px; height: auto; object-fit: cover; transition: transform 0.3s ease;"
+                                        alt="{{ inmueble.nombre }}" onmouseover="this.style.transform='scale(1.1)'"
+                                        onmouseout="this.style.transform='scale(1)'">
+                                    {% else %}
+                                    <img src="{% static 'img/default_image.jpg' %}" class="card-img-top"
+                                        style="width: 100%; max-height: 250px; height: auto; object-fit: cover; transition: transform 0.3s ease;"
+                                        alt="Imagen por defecto" onmouseover="this.style.transform='scale(1.1)'"
+                                        onmouseout="this.style.transform='scale(1)'">
+                                    {% endif %}
+                                    <div class="card-body d-flex flex-column">
+                                        <h5 class="card-title">{{ inmueble.nombre }}</h5>
+                                        <p class="card-text">{{ inmueble.descripcion|truncatewords:20 }}</p>
+                                        <a href="{% url 'inmueble_detail_modal' inmueble.pk %}"
+                                            class="btn btn-primary mt-auto"
+                                            onclick="abrir_modal_detalle(event.target.href); return false;">Ver
+                                            detalle</a>
+                                    </div>
+                                </div>
+                            </div>
+                            {% if forloop.counter0|add:1|divisibleby:3 or forloop.last %}
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#propertyCarousel"
+                    data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#propertyCarousel"
+                    data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+        </div>
+    </div>
 </div>
-{% endblock %}
+
+
+    <div class="modal fade" id="inmuebleModal" tabindex="-1" aria-labelledby="inmuebleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <!-- El contenido del modal se cargará aquí -->
+            </div>
+        </div>
+    </div>
+
+    {% endblock %}
+
+    <style>
+        .carousel-inner {
+            display: flex;
+            flex-wrap: nowrap;
+            /* Evita que las tarjetas se envuelvan */
+        }
+
+        .carousel-item {
+            display: flex;
+            flex-wrap: nowrap;
+            /* Asegura que los elementos no se envuelvan */
+        }
+
+        .card {
+            flex: 1;
+            /* Asegura que las tarjetas ocupen el espacio igual */
+            margin: 0 5px;
+            /* Ajusta el margen según sea necesario */
+            overflow: hidden;
+            /* Evita el desbordamiento de contenido */
+            display: flex;
+            flex-direction: column;
+            /* Asegura que el contenido dentro de la tarjeta se alinee verticalmente */
+        }
+
+        .card-img-top {
+            width: 100%;
+            height: 200px;
+            /* Ajusta la altura según sea necesario */
+            object-fit: cover;
+            /* Asegura que la imagen cubra el área sin deformarse */
+        }
+    </style>
 
 
 
+    {% block js %}
+    <script>
+        function filtrar_comunas() {
+            // recuperamos el valor seleccionado de la Region
+            const cod_seleccionado = $(this).val()
+            console.log(cod_seleccionado)
+            // ahora iteramos sobre todas las comunas, y mostramos sólo aquellas cuyo código tenga como prefijo el código de la región seleccionada
+            $('#comuna_cod option').each(function () {
+                const comuna = $(this)
+                const cod_comuna = comuna.val()
+                if (cod_seleccionado == cod_comuna.substring(0, 2)) {
+                    // la comuna es parte de la region
+                    comuna.show()
+                } else {
+                    comuna.hide()
+                }
+            })
+        }
 
-{% block js %}
-<script>
-    function filtrar_comunas() {
-        // recuperamos el valor seleccionado de la Region
-        const cod_seleccionado = $(this).val()
-        console.log(cod_seleccionado)
-        // ahora iteramos sobre todas las comunas, y mostramos sólo aquellas cuyo código tenga como prefijo el código de la región seleccionada
-        $('#comuna_cod option').each(function () {
-            const comuna = $(this)
-            const cod_comuna = comuna.val()
-            if (cod_seleccionado == cod_comuna.substring(0, 2)) {
-                // la comuna es parte de la region
-                comuna.show()
-            } else {
-                comuna.hide()
-            }
-        })
-    }
+        $('#region_cod').on('change', filtrar_comunas)
 
-    $('#region_cod').on('change', filtrar_comunas)
-</script>
-{% endblock %}
+
+        function abrir_modal_detalle(url) {
+            var $ = jQuery.noConflict();
+            $('#inmuebleModal .modal-content').load(url, function () {
+                $('#inmuebleModal').modal('show');
+            });
+        }
+    </script>
+    {% endblock %}

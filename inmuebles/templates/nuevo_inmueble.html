@@ -7,7 +7,7 @@
   </div>
   <div class="card shadow-lg">
     <div class="card-body">
-  <form action="/inmuebles/crear/" method="post">
+  <form action="/inmuebles/crear/" method="post" enctype="multipart/form-data">
     {% csrf_token %}
     <div class="row">
       <div class="col-4 p-3">
@@ -53,6 +53,11 @@
           <label for="nombre" class="form-label">Dirección:</label>
           <input type="text" class="form-control" id="direccion" required placeholder="tu dirección" name="direccion">
         </div>
+
+        <div class="mb-3">
+          <label for="imagen" class="form-label">Imagen:</label>
+          <input type="file" class="form-control" id="imagen" name="imagen">
+      </div>
 
       </div>
       <div class="col-4 p-3">

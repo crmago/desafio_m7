@@ -8,20 +8,21 @@
     align-items: center;
     justify-content: center;
     min-height: 100vh;
-    background: #f5f5f5;
+    background: #f0f2f5;
     color: #333;
   }
 
   .container {
     width: 100%;
     max-width: 1200px;
+    padding: 15px;
   }
 
   .card {
     background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     max-width: 500px;
     margin: 0 auto;
   }
@@ -29,6 +30,9 @@
   h2 {
     text-align: center;
     color: #333;
+    margin-bottom: 20px;
+    font-size: 24px;
+    font-weight: 600;
   }
 
   form {
@@ -36,32 +40,56 @@
     flex-direction: column;
   }
 
-  input {
-    padding: 10px;
+  .form-group {
+    margin-bottom: 15px;
+  }
+
+  input[type="text"],
+  input[type="password"] {
+    width: 100%;
+    padding: 12px;
     margin-bottom: 12px;
     border: 1px solid #ddd;
-    border-radius: 4px;
+    border-radius: 6px;
     transition: border-color 0.3s ease-in-out;
     outline: none;
     color: #333;
   }
 
-  input:focus {
-    border-color: #555;
+  input[type="text"]:focus,
+  input[type="password"]:focus {
+    border-color: #3498db;
   }
 
   button {
     background-color: #3498db;
     color: #fff;
-    padding: 10px;
+    padding: 12px;
     border: none;
-    border-radius: 4px;
+    border-radius: 6px;
     cursor: pointer;
     transition: background-color 0.3s ease-in-out;
+    font-size: 16px;
   }
 
   button:hover {
     background-color: #2980b9;
+  }
+
+  p {
+    text-align: center;
+    margin-top: 20px;
+    color: #666;
+  }
+
+  p a {
+    color: #3498db;
+    text-decoration: none;
+    transition: color 0.3s ease-in-out;
+  }
+
+  p a:hover {
+    color: #2980b9;
   }
 </style>
 {% endblock %}
@@ -72,12 +100,12 @@
     <h2>Ingresa a Tu Cuenta</h2>
     <form method="post" action="{% url 'login' %}">
       {% csrf_token %}
-      <div class="mt-2">
+      <div class="form-group mt-2">
         {{ form }}
       </div>
       <button type="submit">Ingresar</button>
     </form>
-    <p>Si no tiene cuenta <a href="/accounts/register">crea una aca</a></p>
+    <p>Si no tiene cuenta <a href="/accounts/register">crea una acá</a></p>
   </div>
 </div>
 {% endblock %}

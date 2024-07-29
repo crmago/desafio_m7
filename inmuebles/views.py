@@ -48,7 +48,16 @@ def editar_inmueble(req, id):
         comuna_id = req.POST.get('comuna')
         if comuna_id:
             inmueble.comuna = get_object_or_404(Comuna, id=comuna_id)
+
+        # Manejo de la imagen
+        if 'imagen' in req.FILES:
+            inmueble.imagen = req.FILES['imagen']
+
         inmueble.save()
+
+        # Agregar mensaje de éxito
+        messages.success(req, 'Inmueble editado con éxito.')
+
         return redirect('/accounts/profile/')
     
     else:
@@ -56,29 +65,60 @@ def editar_inmueble(req, id):
 
 @user_passes_test(solo_arrendadores)
 def nuevo_inmueble(req):
-  # nos traemos la información de las comunas y las regiones
-  regiones = Region.objects.all()
-  comunas = Comuna.objects.all()
-  # pasar los datos requeridos por el formulario
-  context = {
-    'tipos_inmueble': Inmueble.tipos,
-    'regiones': regiones,
-    'comunas': comunas
-  }
-  return render(req, 'nuevo_inmueble.html', context)
+    if req.method == 'GET':
+        # Obtener las regiones y comunas
+        regiones = Region.objects.all()
+        comunas = Comuna.objects.all()
+        # Pasar los datos requeridos por el formulario
+        context = {
+            'tipos_inmueble': Inmueble.tipos,
+            'regiones': regiones,
+            'comunas': comunas
+        }
+        return render(req, 'nuevo_inmueble.html', context)
+    
+    elif req.method == 'POST':
+        # Crear una instancia de Inmueble con los datos del formulario
+        inmueble = Inmueble(
+            nombre=req.POST.get('nombre'),
+            descripcion=req.POST.get('descripcion'),
+            m2_construidos=req.POST.get('m2_construidos'),
+            m2_totales=req.POST.get('m2_totales'),
+            num_estacionamientos=req.POST.get('num_estacionamientos'),
+            num_habitaciones=req.POST.get('num_habitaciones'),
+            num_baños=req.POST.get('num_baños'),
+            direccion=req.POST.get('direccion'),
+            tipo_inmueble=req.POST.get('tipo_inmueble'),
+            precio=req.POST.get('precio')
+        )
+        comuna_id = req.POST.get('comuna')
+        if comuna_id:
+            inmueble.comuna = get_object_or_404(Comuna, id=comuna_id)
+
+        # Manejo de la imagen
+        if 'imagen' in req.FILES:
+            inmueble.imagen = req.FILES['imagen']
+
+        # Guardar el nuevo inmueble
+        inmueble.save()
+        return redirect('/accounts/profile/')
+    
+    else:
+        return HttpResponse('Método no permitido', status=405)
+
 
 @user_passes_test(solo_arrendadores)
 def eliminar_inmueble(req, id):
-  eliminar_inmueble_service(id)
-  messages.error(req, 'Inmueble ha sido eliminado')
-  return redirect('/accounts/profile/')
+    eliminar_inmueble_service(id)
+    messages.error(req, 'Inmueble ha sido eliminado')
+    return redirect('/accounts/profile/')
 
 @user_passes_test(solo_arrendadores)
 def crear_inmueble(req):
-  # obtener el rut del usuario
-  propietario_rut = req.user.username
-  # validar metraje (construídos vs totales)
-  crear_inmueble_service(
+    # obtener el rut del usuario
+    propietario_rut = req.user.username
+    # validar metraje (construídos vs totales)
+    crear_inmueble_service(
     req.POST['nombre'],
     req.POST['descripcion'],
     int(req.POST['m2_construidos']),
@@ -91,20 +131,20 @@ def crear_inmueble(req):
     int(req.POST['precio']),
     req.POST['comuna_cod'],
     propietario_rut
-  )
-  messages.success(req, 'Propiedad Creada')
-  return redirect('/accounts/profile/')
+    )
+    messages.success(req, 'Propiedad Creada')
+    return redirect('/accounts/profile/')
 
 @user_passes_test(solo_arrendadores)
 def nuevo_inmueble(req):
-  # nos traemos la información de las comunas y las regiones
-  regiones = Region.objects.all()
-  comunas = Comuna.objects.all()
-  # pasar los datos requeridos por el formulario
-  context = {
+    # nos traemos la información de las comunas y las regiones
+    regiones = Region.objects.all()
+    comunas = Comuna.objects.all()
+    # pasar los datos requeridos por el formulario
+    context = {
     'tipos_inmueble': Inmueble.tipos,
     'regiones': regiones,
     'comunas': comunas
-  }
-  return render(req, 'nuevo_inmueble.html', context)
+    }
+    return render(req, 'nuevo_inmueble.html', context)
 
