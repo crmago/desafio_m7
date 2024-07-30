@@ -8,10 +8,10 @@ from inmuebles.forms import InmuebleForm
 
 # vamos a crear un test que sólo pasan los 'arrendadores'
 def solo_arrendadores(user):
-  if user.user_profile.rol == 'arrendador' or user.is_staff == True:
-    return True
-  else:
-    return False
+    if user.user_profile.rol == 'arrendador' or user.is_staff == True:
+        return True
+    else:
+        return False
 
 @user_passes_test(solo_arrendadores)
 def editar_inmueble(req, id):
@@ -23,7 +23,7 @@ def editar_inmueble(req, id):
         regiones = Region.objects.all()
         comunas = Comuna.objects.all()
         # Obtengo el código de la región
-        cod_region_actual = inmueble.comuna_id[0:2]
+        cod_region_actual = inmueble.comuna.cod[0:2]
         # Creo el 'context' con toda la info que requiere el template
         context = {
             'inmueble': inmueble,
@@ -45,9 +45,9 @@ def editar_inmueble(req, id):
         inmueble.direccion = req.POST.get('direccion')
         inmueble.tipo_inmueble = req.POST.get('tipo_inmueble')
         inmueble.precio = req.POST.get('precio')
-        comuna_id = req.POST.get('comuna')
-        if comuna_id:
-            inmueble.comuna = get_object_or_404(Comuna, id=comuna_id)
+        comuna_cod = req.POST.get('comuna_cod')
+        if comuna_cod:
+            inmueble.comuna = get_object_or_404(Comuna, cod=comuna_cod)
 
         # Manejo de la imagen
         if 'imagen' in req.FILES:
